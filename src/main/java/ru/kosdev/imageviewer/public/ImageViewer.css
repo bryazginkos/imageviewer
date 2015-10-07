@@ -5,3 +5,15 @@ body {
     font-size: small;
     margin: 8px;
 }
+
+
+.watchWindow {
+    overflow: hidden;
+    cursor: url(hand.cur) 6 8, pointer;
+}
+
+.showImage {
+    position: relative;
+    top: 0;
+    left: 0;
+}
