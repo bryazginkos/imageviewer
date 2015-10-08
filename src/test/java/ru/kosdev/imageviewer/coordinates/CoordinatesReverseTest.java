@@ -1,14 +1,14 @@
 package ru.kosdev.imageviewer.coordinates;
 
-/**
- * Created by Константин on 08.10.2015.
- */
 import org.junit.Test;
 import ru.kosdev.imageviewer.client.widget.Rotation;
 
 import static ru.kosdev.imageviewer.client.widget.utils.CoordinatesTransformer.*;
 import static org.junit.Assert.*;
 
+/**
+ * Created by Константин on 08.10.2015.
+ */
 public class CoordinatesReverseTest {
 
     private static final int axisX = 12;
