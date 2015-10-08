@@ -10,6 +10,8 @@ body {
 .watchWindow {
     overflow: hidden;
     cursor: url(hand.cur) 6 8, pointer;
+    border-style: solid;
+    border-width: 1px;
 }
 
 .showImage {
