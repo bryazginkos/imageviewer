@@ -29,8 +29,8 @@ class FitFullSizeProcessor {
 
             double koef = ViewerUtils.min(koefW, koefH);
 
-            imageWrapper.getImage().setWidth(Integer.toString(ViewerUtils.round(koef * originalWidth)));
-            imageWrapper.getImage().setHeight(Integer.toString(ViewerUtils.round(koef * originalHeight)));
+            imageWrapper.setWidth(ViewerUtils.round(koef * originalWidth));
+            imageWrapper.setHeight(ViewerUtils.round(koef * originalHeight));
         }
     }
 
@@ -40,8 +40,8 @@ class FitFullSizeProcessor {
             resetPosition();
             int originalHeight = imageWrapper.getOriginalHeight();
             int originalWidth = imageWrapper.getOriginalWidth();
-            imageWrapper.getImage().setWidth(Integer.toString(originalWidth));
-            imageWrapper.getImage().setHeight(Integer.toString(originalHeight));
+            imageWrapper.setWidth(originalWidth);
+            imageWrapper.setHeight(originalHeight);
         }
     }
 

@@ -16,12 +16,15 @@ public class ImageWrapper {
     private int originalWidth;
     private int originalHeight;
 
+    private int rotation;
+
     private boolean loading = false;
 
     public ImageWrapper() {
         image = new Image();
         image.setStyleName("showImage");
         image.getElement().setId("imgshow");
+        rotation = 0;
         image.addLoadHandler(new LoadHandler() {
             @Override
             public void onLoad(LoadEvent event) {
@@ -38,11 +41,11 @@ public class ImageWrapper {
     }
 
     public int getOriginalWidth() {
-        return originalWidth;
+        return isWidthAndHeightInverted() ? originalHeight : originalWidth;
     }
 
     public int getOriginalHeight() {
-        return originalHeight;
+        return isWidthAndHeightInverted() ? originalWidth : originalHeight;
     }
 
     public void setTop(int top) {
@@ -67,5 +70,50 @@ public class ImageWrapper {
 
     public Image getImage() {
         return image;
+    }
+
+    public void rotateLeft() {
+        rotation = rotation -90;
+        if (rotation < 0) rotation = 270;
+        setRotation(rotation);
+    }
+
+    public void rotateRight() {
+        rotation = rotation + 90;
+        if (rotation > 360) rotation = 0;
+        setRotation(rotation);
+    }
+
+    public int getHeight() {
+        return ViewerUtils.parseStringCss(DOM.getStyleAttribute(image.getElement(), getHeightAttribute()));
+    }
+
+    public int getWidth() {
+        return ViewerUtils.parseStringCss(DOM.getStyleAttribute(image.getElement(), getWidthAttribute()));
+    }
+
+    public void setHeight(int height) {
+        DOM.setStyleAttribute(image.getElement(), getHeightAttribute(), Integer.toString(height));
+    }
+
+    public void setWidth(int width) {
+        DOM.setStyleAttribute(image.getElement(), getWidthAttribute(), Integer.toString(width));
+    }
+
+    private boolean isWidthAndHeightInverted() {
+     return rotation % 180 != 0;
+    }
+
+    private void setRotation(int deg) {
+        DOM.setStyleAttribute(image.getElement(), "transform", "rotate(" + deg + "deg)");
+    }
+
+
+    private String getWidthAttribute() {
+        return !isWidthAndHeightInverted() ? "width" : "height";
+    }
+
+    private String getHeightAttribute() {
+        return isWidthAndHeightInverted() ? "width" : "height";
     }
 }

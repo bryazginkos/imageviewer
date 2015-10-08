@@ -14,8 +14,8 @@ public class ImageViewer implements EntryPoint {
     public void onModuleLoad() {
         final ImageViewerPanel viewer = ViewerFactory.createImageViewerPanel();
         viewer.setUrl("http://icdn.lenta.ru/images/2015/10/02/14/20151002142531780/online_a57bbfb74077da336bed0e562542942c.jpg");
-        viewer.setWidth("25%");
-        viewer.setHeight("25%");
+        viewer.setWidth("500");
+        viewer.setHeight("300");
 
         Button fitButton = new Button("Fit");
         fitButton.addClickHandler(new ClickHandler() {
@@ -31,6 +31,20 @@ public class ImageViewer implements EntryPoint {
             }
         });
 
+        Button leftButton = new Button("Left");
+        leftButton.addClickHandler(new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                viewer.rotateLeft();
+            }
+        });
+
+        Button rightButton = new Button("Right");
+        rightButton.addClickHandler(new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                viewer.rotateRight();
+            }
+        });
+
         HorizontalPanel viewerPanel = new HorizontalPanel();
         viewerPanel.setWidth("100%");
         viewerPanel.setHeight("90%");
@@ -42,6 +56,8 @@ public class ImageViewer implements EntryPoint {
         HorizontalPanel horizontalPanel = new HorizontalPanel();
         horizontalPanel.add(fitButton);
         horizontalPanel.add(fullButton);
+        horizontalPanel.add(leftButton);
+        horizontalPanel.add(rightButton);
         RootPanel.get().add(horizontalPanel);
     }
 }

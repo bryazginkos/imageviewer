@@ -57,6 +57,14 @@ public class ImageViewerPanel extends SimplePanel implements HasMouseOutHandlers
         fitFullSizeProcessor.fullSize();
     }
 
+    public void rotateLeft() {
+        imageWrapper.rotateLeft();
+    }
+
+    public void rotateRight() {
+        imageWrapper.rotateRight();
+    }
+
     @Override
     public HandlerRegistration addMouseOutHandler(MouseOutHandler handler) {
         return addDomHandler(handler, MouseOutEvent.getType());
