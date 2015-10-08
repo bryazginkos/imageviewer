@@ -142,7 +142,7 @@ class ImageWrapper {
         return isWidthAndHeightInverted() ? "width" : "height";
     }
 
-    private void setRotationAxis(int x, int y) {
+    public void setRotationAxis(int x, int y) {
         DOM.setStyleAttribute(image.getElement(), "transformOrigin", x + "px " + y + "px 0");
         axisX = x;
         axisY = y;

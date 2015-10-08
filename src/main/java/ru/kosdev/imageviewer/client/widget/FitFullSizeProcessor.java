@@ -51,6 +51,7 @@ class FitFullSizeProcessor {
         int width = imageWrapper.getDOMWidth();
         int height = imageWrapper.getDOMHeight();
 
+        imageWrapper.setRotationAxis(0, 0);
         switch (imageWrapper.getRotation()) {
             case ROTATION_0: {
                 imageWrapper.setLeft(0);
@@ -68,7 +69,7 @@ class FitFullSizeProcessor {
                 break;
             }
             case ROTATION_270: {
-                imageWrapper.setLeft(height);
+                imageWrapper.setLeft(0);
                 imageWrapper.setTop(width);
                 break;
             }
