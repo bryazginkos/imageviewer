@@ -18,7 +18,7 @@ public class CoordinatesTransformer {
     public static int getVisibleTop(Rotation rotation, int axisX, int axisY, int cssTop) {
         switch (rotation) {
             case ROTATION_0: return cssTop;
-            case ROTATION_90: return cssTop + axisX - axisY;
+            case ROTATION_90: return cssTop + axisY - axisX;
             case ROTATION_180: return cssTop + 2*axisY;
             case ROTATION_270: return cssTop + axisX + axisY;
             default: return 0;
