@@ -68,7 +68,6 @@ class DragAndDropProcessor {
 
     private MouseOutHandler createMouseOutHandler() {
         return new MouseOutHandler() {
-            @Override
             public void onMouseOut(MouseOutEvent event) {
                 pressed = false;
             }

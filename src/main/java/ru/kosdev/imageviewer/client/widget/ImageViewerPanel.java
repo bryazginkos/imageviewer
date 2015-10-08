@@ -23,7 +23,6 @@ public class ImageViewerPanel extends SimplePanel implements HasMouseOutHandlers
         add(imageWrapper.getImage());
         setStyleName("watchWindow");
         addAttachHandler(new AttachEvent.Handler() {
-            @Override
             public void onAttachOrDetach(AttachEvent event) {
                 addFitFullSizeProcessor();
                 addDragAndDropProcessor();
@@ -65,7 +64,6 @@ public class ImageViewerPanel extends SimplePanel implements HasMouseOutHandlers
         imageWrapper.rotateRight(getImageCenterPointX(), getImageCenterPointY());
     }
 
-    @Override
     public HandlerRegistration addMouseOutHandler(MouseOutHandler handler) {
         return addDomHandler(handler, MouseOutEvent.getType());
     }
