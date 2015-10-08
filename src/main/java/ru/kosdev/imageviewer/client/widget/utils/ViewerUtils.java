@@ -1,11 +1,11 @@
-package ru.kosdev.imageviewer.client.widget;
+package ru.kosdev.imageviewer.client.widget.utils;
 
 /**
  * Created by brjazgin on 07.10.2015.
  */
-public final class MathUtils {
+public final class ViewerUtils {
 
-    private MathUtils() {
+    private ViewerUtils() {
     }
 
     public static double min(double a, double b) {
@@ -16,7 +16,7 @@ public final class MathUtils {
         return (int)Math.round(d);
     }
 
-    public static int parseInt(String s) {
+    public static int parseStringCss(String s) {
         if (s == null) return 0;
         if (s.equals("")) return 0;
         return Integer.parseInt(s.replace("px", ""));

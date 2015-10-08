@@ -2,14 +2,15 @@ package ru.kosdev.imageviewer.client.widget;
 
 import com.google.gwt.event.dom.client.*;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.Element;
+import ru.kosdev.imageviewer.client.widget.utils.ViewerUtils;
 
 /**
  * Created by brjazgin on 07.10.2015.
  */
-public class DragAndDropProcessor {
+class DragAndDropProcessor {
 
-    private Image image;
+    private final ImageViewerPanel imageViewerPanel;
 
     private int xScreen0;
     private int yScreen0;
@@ -19,28 +20,29 @@ public class DragAndDropProcessor {
 
     private boolean pressed;
 
-    public DragAndDropProcessor(Image image) {
-        this.image = image;
-        image.addMouseDownHandler(createMouseDownHandler());
-        image.addMouseUpHandler(createMouseUpHandler());
-        image.addMouseMoveHandler(createMouseMoveHandler());
+    public DragAndDropProcessor(ImageViewerPanel imageViewerPanel) {
+        this.imageViewerPanel = imageViewerPanel;
+        imageViewerPanel.getImageWrapper().getImage().addMouseDownHandler(createMouseDownHandler());
+        imageViewerPanel.getImageWrapper().getImage().addMouseUpHandler(createMouseUpHandler());
+        imageViewerPanel.getImageWrapper().getImage().addMouseMoveHandler(createMouseMoveHandler());
     }
 
-    public MouseDownHandler createMouseDownHandler() {
+    private MouseDownHandler createMouseDownHandler() {
         return new MouseDownHandler() {
             public void onMouseDown(MouseDownEvent mouseDownEvent) {
                 mouseDownEvent.preventDefault();
                 xScreen0 = mouseDownEvent.getNativeEvent().getScreenX();
                 yScreen0 = mouseDownEvent.getNativeEvent().getScreenY();
 
-                top0 = MathUtils.parseInt(DOM.getStyleAttribute(image.getElement(), "top"));
-                left0 = MathUtils.parseInt(DOM.getStyleAttribute(image.getElement(), "left"));
+                ImageWrapper imageWrapper = imageViewerPanel.getImageWrapper();
+                top0 = imageWrapper.getTop();
+                left0 = imageWrapper.getLeft();
                 pressed = true;
             }
         };
     }
 
-    public MouseMoveHandler createMouseMoveHandler() {
+    private MouseMoveHandler createMouseMoveHandler() {
         return new MouseMoveHandler() {
             public void onMouseMove(MouseMoveEvent mouseMoveEvent) {
                 if (pressed) {
@@ -50,14 +52,15 @@ public class DragAndDropProcessor {
                     int top = top0 + yScreen - yScreen0;
                     int left = left0 + xScreen - xScreen0;
 
-                    DOM.setStyleAttribute(image.getElement(), "top", Integer.toString(top));
-                    DOM.setStyleAttribute(image.getElement(), "left", Integer.toString(left));
+                    ImageWrapper imageWrapper = imageViewerPanel.getImageWrapper();
+                    imageWrapper.setLeft(left);
+                    imageWrapper.setTop(top);
                 }
             }
         };
     }
 
-    public MouseUpHandler createMouseUpHandler() {
+    private MouseUpHandler createMouseUpHandler() {
         return new MouseUpHandler() {
             public void onMouseUp(MouseUpEvent mouseUpEvent) {
                 pressed = false;
