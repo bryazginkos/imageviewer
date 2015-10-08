@@ -31,7 +31,13 @@ public class ImageViewer implements EntryPoint {
             }
         });
 
-        RootPanel.get().add(viewer);
+        HorizontalPanel viewerPanel = new HorizontalPanel();
+        viewerPanel.setWidth("100%");
+        viewerPanel.setHeight("90%");
+        viewerPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+        viewerPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+        viewerPanel.add(viewer);
+        RootPanel.get().add(viewerPanel);
 
         HorizontalPanel horizontalPanel = new HorizontalPanel();
         horizontalPanel.add(fitButton);
