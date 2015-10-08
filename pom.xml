@@ -8,8 +8,20 @@
     <artifactId>imageviewer</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <repositories>
+        <repository>
+            <id>central</id>
+            <name>Maven Repository Switchboard</name>
+            <layout>default</layout>
+            <url>http://repo1.maven.org/maven2</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
     <properties>
-        <gwt.version>2.7.0</gwt.version>
+        <gwt.version>2.5.1</gwt.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
     </properties>
