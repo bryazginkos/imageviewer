@@ -15,4 +15,10 @@ public final class MathUtils {
     public static int round(double d) {
         return (int)Math.round(d);
     }
+
+    public static int parseInt(String s) {
+        if (s == null) return 0;
+        if (s.equals("")) return 0;
+        return Integer.parseInt(s.replace("px", ""));
+    }
 }

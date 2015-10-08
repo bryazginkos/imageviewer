@@ -30,11 +30,11 @@ public class DragAndDropProcessor {
         return new MouseDownHandler() {
             public void onMouseDown(MouseDownEvent mouseDownEvent) {
                 mouseDownEvent.preventDefault();
-                String toptt = image.getElement().getStyle().getTop();
                 xScreen0 = mouseDownEvent.getNativeEvent().getScreenX();
                 yScreen0 = mouseDownEvent.getNativeEvent().getScreenY();
-                top0 = Integer.parseInt(DOM.getStyleAttribute(image.getElement(), "top").replace("px", ""));
-                left0 = Integer.parseInt(DOM.getStyleAttribute(image.getElement(), "left").replace("px", ""));
+
+                top0 = MathUtils.parseInt(DOM.getStyleAttribute(image.getElement(), "top"));
+                left0 = MathUtils.parseInt(DOM.getStyleAttribute(image.getElement(), "left"));
                 pressed = true;
             }
         };
