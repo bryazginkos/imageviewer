@@ -102,6 +102,25 @@ public class ImageWrapper {
         DOM.setStyleAttribute(image.getElement(), getWidthAttribute(), Integer.toString(width));
     }
 
+    public void resetPosition() {
+        setRotationAxis(0, 0);
+        int width = getDOMWidth();
+        int height = getDOMHeight();
+        if (rotation == 0) {
+            setLeft(0);
+            setTop(0);
+        } else if (rotation == 90) {
+            setLeft(height);
+            setTop(0);
+        } else if (rotation == 180) {
+            setLeft(width);
+            setTop(height);
+        } else if (rotation == 270) {
+            setLeft(height);
+            setTop(width);
+        }
+    }
+
     private boolean isWidthAndHeightInverted() {
      return rotation % 180 != 0;
     }
@@ -109,7 +128,6 @@ public class ImageWrapper {
     private void setRotation(int deg) {
         DOM.setStyleAttribute(image.getElement(), "transform", "rotate(" + deg + "deg)");
     }
-
 
     private String getWidthAttribute() {
         return !isWidthAndHeightInverted() ? "width" : "height";
@@ -121,5 +139,13 @@ public class ImageWrapper {
 
     private void setRotationAxis(int x, int y) {
         DOM.setStyleAttribute(image.getElement(), "transformOrigin", x + "px " + y + "px 0");
+    }
+
+    private int getDOMHeight() {
+        return ViewerUtils.parseStringCss(DOM.getStyleAttribute(image.getElement(), "height"));
+    }
+
+    private int getDOMWidth() {
+        return ViewerUtils.parseStringCss(DOM.getStyleAttribute(image.getElement(), "width"));
     }
 }

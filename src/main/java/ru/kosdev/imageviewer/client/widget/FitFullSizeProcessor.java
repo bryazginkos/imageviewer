@@ -16,7 +16,6 @@ class FitFullSizeProcessor {
     public void fitToSize() {
         ImageWrapper imageWrapper = imageViewerPanel.getImageWrapper();
         if (imageWrapper.isLoaded()) {
-            resetPosition();
 
             int watchWidth = imageViewerPanel.getWidth();
             int watchHeight = imageViewerPanel.getHeight();
@@ -31,23 +30,20 @@ class FitFullSizeProcessor {
 
             imageWrapper.setWidth(ViewerUtils.round(koef * originalWidth));
             imageWrapper.setHeight(ViewerUtils.round(koef * originalHeight));
+
+            imageViewerPanel.getImageWrapper().resetPosition();
         }
     }
 
     public void fullSize() {
         ImageWrapper imageWrapper = imageViewerPanel.getImageWrapper();
         if (imageViewerPanel.getImageWrapper().isLoaded()) {
-            resetPosition();
             int originalHeight = imageWrapper.getOriginalHeight();
             int originalWidth = imageWrapper.getOriginalWidth();
             imageWrapper.setWidth(originalWidth);
             imageWrapper.setHeight(originalHeight);
+            imageViewerPanel.getImageWrapper().resetPosition();
         }
     }
 
-    private void resetPosition() {
-        ImageWrapper imageWrapper = imageViewerPanel.getImageWrapper();
-        imageWrapper.setLeft(0);
-        imageWrapper.setTop(0);
-    }
 }
