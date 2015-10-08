@@ -26,7 +26,6 @@ public class ImageWrapper {
         image.getElement().setId("imgshow");
         rotation = 0;
         image.addLoadHandler(new LoadHandler() {
-            @Override
             public void onLoad(LoadEvent event) {
                 loading = false;
                 originalHeight = image.getHeight();
