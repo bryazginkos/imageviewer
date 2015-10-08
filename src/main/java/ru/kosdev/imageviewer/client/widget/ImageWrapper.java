@@ -10,7 +10,7 @@ import ru.kosdev.imageviewer.client.widget.utils.ViewerUtils;
 /**
  * Created by brjazgin on 08.10.2015.
  */
-public class ImageWrapper {
+class ImageWrapper {
 
     private final Image image;
 
@@ -68,6 +68,14 @@ public class ImageWrapper {
     public int getLeft() {
         int cssLeft = ViewerUtils.parseStringCss(DOM.getStyleAttribute(image.getElement(), "left"));
         return CoordinatesTransformer.getVisibleLeft(rotation, axisX, axisY, cssLeft);
+    }
+
+    public int getDOMTop() {
+        return ViewerUtils.parseStringCss(DOM.getStyleAttribute(image.getElement(), "top"));
+    }
+
+    public int getDOMLeft() {
+        return ViewerUtils.parseStringCss(DOM.getStyleAttribute(image.getElement(), "left"));
     }
 
     public boolean isLoaded() {

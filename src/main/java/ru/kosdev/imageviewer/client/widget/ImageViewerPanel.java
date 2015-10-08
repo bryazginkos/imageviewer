@@ -78,13 +78,13 @@ public class ImageViewerPanel extends SimplePanel implements HasMouseOutHandlers
 
     private int getImageCenterPointX() {
         int windowWidth = getWidth();
-        int imageLeft = imageWrapper.getLeft();
+        int imageLeft = imageWrapper.getDOMLeft();
         return windowWidth/2 - imageLeft;
     }
 
     private int getImageCenterPointY() {
         int windowHeight = getHeight();
-        int imageTop = imageWrapper.getTop();
+        int imageTop = imageWrapper.getDOMTop();
         return windowHeight/2 - imageTop;
     }
 }
