@@ -1,5 +1,7 @@
 package ru.kosdev.imageviewer.client.widget.utils;
 
+import ru.kosdev.imageviewer.client.widget.Rotation;
+
 /**
  * Created by brjazgin on 08.10.2015.
  */
@@ -7,57 +9,77 @@ public class CoordinatesTransformer {
 
     /**
      * Если изображение повернуто, то css top не будет совпадать с вилимым top
-     * @param degree угол поворота
+     * @param rotation угол поворота
      * @param axisX относительные координаты x точки оси поворота
      * @param axisY относительные координаты y точки оси поворота
      * @param cssTop css top
      * @param cssLeft css left
      * @return
      */
-    public static int getVisibleTop(int degree, int axisX, int axisY, int cssTop, int cssLeft) {
-        //todo
-        return 0;
+    public static int getVisibleTop(Rotation rotation, int axisX, int axisY, int cssTop, int cssLeft) {
+        switch (rotation) {
+            case ROTATION_0: return cssTop;
+            case ROTATION_90: return cssTop + axisX - axisY;
+            case ROTATION_180: return cssTop + 2*axisY;
+            case ROTATION_270: return cssTop + axisX + axisY;
+            default: return 0;
+        }
     }
 
     /**
      * Если изображение повернуто, то css left не будет совпадать с вилимым left
-     * @param degree угол поворота
+     * @param rotation угол поворота
      * @param axisX относительные координаты x точки оси поворота
      * @param axisY относительные координаты y точки оси поворота
      * @param cssTop css top
      * @param cssLeft css left
      * @return
      */
-    public static int getVisibleLeft(int degree, int axisX, int axisY, int cssTop, int cssLeft) {
-        //todo
-        return 0;
+    public static int getVisibleLeft(Rotation rotation, int axisX, int axisY, int cssTop, int cssLeft) {
+        switch (rotation) {
+            case ROTATION_0: return cssLeft;
+            case ROTATION_90: return  cssLeft + axisX + axisY;
+            case ROTATION_180: return cssLeft + 2*axisX;
+            case ROTATION_270: return cssLeft + axisX - axisY;
+            default: return 0;
+        }
     }
 
     /**
      * Если изображение повернуто, то css top не будет совпадать с вилимым top
-     * @param degree - угол поворота
+     * @param rotation - угол поворота
      * @param axisX относительные координаты x точки оси поворота
      * @param axisY относительные координаты y точки оси поворота
      * @param visibleTop видимый top
      * @param visibleLeft видимый left
      * @return
      */
-    public static int getCssTop(int degree, int axisX, int axisY, int visibleTop, int visibleLeft) {
-        //todo;
-        return 0;
+    public static int getCssTop(Rotation rotation, int axisX, int axisY, int visibleTop, int visibleLeft) {
+        switch (rotation) {
+            case ROTATION_0: return visibleTop;
+            case ROTATION_90: return visibleTop + axisX - axisY;
+            case ROTATION_180: return visibleTop - 2*axisY;
+            case ROTATION_270: return visibleTop - axisX - axisY;
+            default: return 0;
+        }
     }
 
     /**
      * Если изображение повернуто, то css left не будет совпадать с вилимым left
-     * @param degree - угол поворота
+     * @param rotation - угол поворота
      * @param axisX относительные координаты x точки оси поворота
      * @param axisY относительные координаты y точки оси поворота
      * @param visibleTop видимый top
      * @param visibleLeft видимый left
      * @return
      */
-    public static int getCssLeft(int degree, int axisX, int axisY, int visibleTop, int visibleLeft) {
-        //todo;
-        return 0;
+    public static int getCssLeft(Rotation rotation, int axisX, int axisY, int visibleTop, int visibleLeft) {
+        switch (rotation) {
+            case ROTATION_0: return visibleLeft;
+            case ROTATION_90: return visibleLeft - axisX -axisY;
+            case ROTATION_180: return visibleLeft - 2*axisX;
+            case ROTATION_270: return visibleLeft + axisY - axisX;
+            default: return 0;
+        }
     }
 }
