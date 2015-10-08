@@ -72,13 +72,15 @@ public class ImageWrapper {
         return image;
     }
 
-    public void rotateLeft() {
+    public void rotateLeft(int centerX, int centerY) {
+        setRotationAxis(centerX, centerY);
         rotation = rotation -90;
         if (rotation < 0) rotation = 270;
         setRotation(rotation);
     }
 
-    public void rotateRight() {
+    public void rotateRight(int centerX, int centerY) {
+        setRotationAxis(centerX, centerY);
         rotation = rotation + 90;
         if (rotation > 360) rotation = 0;
         setRotation(rotation);
@@ -115,5 +117,9 @@ public class ImageWrapper {
 
     private String getHeightAttribute() {
         return isWidthAndHeightInverted() ? "width" : "height";
+    }
+
+    private void setRotationAxis(int x, int y) {
+        DOM.setStyleAttribute(image.getElement(), "transformOrigin", x + "px " + y + "px 0");
     }
 }

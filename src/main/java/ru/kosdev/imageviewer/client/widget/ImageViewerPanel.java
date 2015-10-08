@@ -58,11 +58,11 @@ public class ImageViewerPanel extends SimplePanel implements HasMouseOutHandlers
     }
 
     public void rotateLeft() {
-        imageWrapper.rotateLeft();
+        imageWrapper.rotateLeft(getImageCenterPointX(), getImageCenterPointY());
     }
 
     public void rotateRight() {
-        imageWrapper.rotateRight();
+        imageWrapper.rotateRight(getImageCenterPointX(), getImageCenterPointY());
     }
 
     @Override
@@ -76,5 +76,17 @@ public class ImageViewerPanel extends SimplePanel implements HasMouseOutHandlers
 
     private void addDragAndDropProcessor() {
         dragAndDropProcessor = new DragAndDropProcessor(this);
+    }
+
+    private int getImageCenterPointX() {
+        int windowWidth = getWidth();
+        int imageLeft = imageWrapper.getLeft();
+        return windowWidth/2 - imageLeft;
+    }
+
+    private int getImageCenterPointY() {
+        int windowHeight = getHeight();
+        int imageTop = imageWrapper.getTop();
+        return windowHeight/2 - imageTop;
     }
 }
