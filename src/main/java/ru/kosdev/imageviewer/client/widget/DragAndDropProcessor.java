@@ -1,9 +1,6 @@
 package ru.kosdev.imageviewer.client.widget;
 
 import com.google.gwt.event.dom.client.*;
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Element;
-import ru.kosdev.imageviewer.client.widget.utils.ViewerUtils;
 
 /**
  * Created by brjazgin on 07.10.2015.
@@ -25,6 +22,7 @@ class DragAndDropProcessor {
         imageViewerPanel.getImageWrapper().getImage().addMouseDownHandler(createMouseDownHandler());
         imageViewerPanel.getImageWrapper().getImage().addMouseUpHandler(createMouseUpHandler());
         imageViewerPanel.getImageWrapper().getImage().addMouseMoveHandler(createMouseMoveHandler());
+        imageViewerPanel.addMouseOutHandler(createMouseOutHandler());
     }
 
     private MouseDownHandler createMouseDownHandler() {
@@ -67,4 +65,14 @@ class DragAndDropProcessor {
             }
         };
     }
+
+    private MouseOutHandler createMouseOutHandler() {
+        return new MouseOutHandler() {
+            @Override
+            public void onMouseOut(MouseOutEvent event) {
+                pressed = false;
+            }
+        };
+    }
+
 }

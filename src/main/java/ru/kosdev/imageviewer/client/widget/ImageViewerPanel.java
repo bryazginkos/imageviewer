@@ -1,13 +1,17 @@
 package ru.kosdev.imageviewer.client.widget;
 
+import com.google.gwt.event.dom.client.HasMouseOutHandlers;
+import com.google.gwt.event.dom.client.MouseOutEvent;
+import com.google.gwt.event.dom.client.MouseOutHandler;
 import com.google.gwt.event.logical.shared.AttachEvent;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.SimplePanel;
 
 /**
  * Created by brjazgin on 07.10.2015.
  */
-public class ImageViewerPanel extends SimplePanel {
+public class ImageViewerPanel extends SimplePanel implements HasMouseOutHandlers {
 
     private FitFullSizeProcessor fitFullSizeProcessor;
     private DragAndDropProcessor dragAndDropProcessor;
@@ -51,6 +55,11 @@ public class ImageViewerPanel extends SimplePanel {
 
     public void fullSize() {
         fitFullSizeProcessor.fullSize();
+    }
+
+    @Override
+    public HandlerRegistration addMouseOutHandler(MouseOutHandler handler) {
+        return addDomHandler(handler, MouseOutEvent.getType());
     }
 
     private void addFitFullSizeProcessor() {
