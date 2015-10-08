@@ -4,6 +4,7 @@ import com.google.gwt.event.dom.client.LoadEvent;
 import com.google.gwt.event.dom.client.LoadHandler;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Image;
+import ru.kosdev.imageviewer.client.widget.utils.CoordinatesTransformer;
 import ru.kosdev.imageviewer.client.widget.utils.ViewerUtils;
 
 /**
@@ -16,7 +17,9 @@ public class ImageWrapper {
     private int originalWidth;
     private int originalHeight;
 
-    private int rotation;
+    private Rotation rotation;
+    private int axisX;
+    private int axisY;
 
     private boolean loading = false;
 
@@ -24,7 +27,7 @@ public class ImageWrapper {
         image = new Image();
         image.setStyleName("showImage");
         image.getElement().setId("imgshow");
-        rotation = 0;
+        rotation  = Rotation.ROTATION_0;
         image.addLoadHandler(new LoadHandler() {
             public void onLoad(LoadEvent event) {
                 loading = false;
@@ -48,19 +51,23 @@ public class ImageWrapper {
     }
 
     public void setTop(int top) {
-        DOM.setStyleAttribute(image.getElement(), "top", Integer.toString(top));
+        int cssTop = CoordinatesTransformer.getCssTop(rotation, axisX, axisY, top);
+        DOM.setStyleAttribute(image.getElement(), "top", Integer.toString(cssTop));
     }
 
     public void setLeft(int left) {
-        DOM.setStyleAttribute(image.getElement(), "left", Integer.toString(left));
+        int cssLeft = CoordinatesTransformer.getCssLeft(rotation, axisX, axisY, left);
+        DOM.setStyleAttribute(image.getElement(), "left", Integer.toString(cssLeft));
     }
 
     public int getTop() {
-        return ViewerUtils.parseStringCss(DOM.getStyleAttribute(image.getElement(), "top"));
+        int cssTop = ViewerUtils.parseStringCss(DOM.getStyleAttribute(image.getElement(), "top"));
+        return CoordinatesTransformer.getVisibleTop(rotation, axisX, axisY, cssTop);
     }
 
     public int getLeft() {
-        return ViewerUtils.parseStringCss(DOM.getStyleAttribute(image.getElement(), "left"));
+        int cssLeft = ViewerUtils.parseStringCss(DOM.getStyleAttribute(image.getElement(), "left"));
+        return CoordinatesTransformer.getVisibleLeft(rotation, axisX, axisY, cssLeft);
     }
 
     public boolean isLoaded() {
@@ -73,16 +80,14 @@ public class ImageWrapper {
 
     public void rotateLeft(int centerX, int centerY) {
         setRotationAxis(centerX, centerY);
-        rotation = rotation -90;
-        if (rotation < 0) rotation = 270;
-        setRotation(rotation);
+        rotation = rotation.getLeft();
+        setRotation(rotation.getDegree());
     }
 
     public void rotateRight(int centerX, int centerY) {
         setRotationAxis(centerX, centerY);
-        rotation = rotation + 90;
-        if (rotation > 360) rotation = 0;
-        setRotation(rotation);
+        rotation = rotation.getRight();
+        setRotation(rotation.getDegree());
     }
 
     public int getHeight() {
@@ -101,27 +106,20 @@ public class ImageWrapper {
         DOM.setStyleAttribute(image.getElement(), getWidthAttribute(), Integer.toString(width));
     }
 
-    public void resetPosition() {
-        setRotationAxis(0, 0);
-        int width = getDOMWidth();
-        int height = getDOMHeight();
-        if (rotation == 0) {
-            setLeft(0);
-            setTop(0);
-        } else if (rotation == 90) {
-            setLeft(height);
-            setTop(0);
-        } else if (rotation == 180) {
-            setLeft(width);
-            setTop(height);
-        } else if (rotation == 270) {
-            setLeft(height);
-            setTop(width);
-        }
+    public int getDOMHeight() {
+        return ViewerUtils.parseStringCss(DOM.getStyleAttribute(image.getElement(), "height"));
+    }
+
+    public int getDOMWidth() {
+        return ViewerUtils.parseStringCss(DOM.getStyleAttribute(image.getElement(), "width"));
+    }
+
+    public Rotation getRotation() {
+        return rotation;
     }
 
     private boolean isWidthAndHeightInverted() {
-     return rotation % 180 != 0;
+     return rotation.getDegree() % 180 != 0;
     }
 
     private void setRotation(int deg) {
@@ -138,13 +136,7 @@ public class ImageWrapper {
 
     private void setRotationAxis(int x, int y) {
         DOM.setStyleAttribute(image.getElement(), "transformOrigin", x + "px " + y + "px 0");
-    }
-
-    private int getDOMHeight() {
-        return ViewerUtils.parseStringCss(DOM.getStyleAttribute(image.getElement(), "height"));
-    }
-
-    private int getDOMWidth() {
-        return ViewerUtils.parseStringCss(DOM.getStyleAttribute(image.getElement(), "width"));
+        axisX = x;
+        axisY = y;
     }
 }

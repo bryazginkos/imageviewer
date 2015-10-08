@@ -31,7 +31,7 @@ class FitFullSizeProcessor {
             imageWrapper.setWidth(ViewerUtils.round(koef * originalWidth));
             imageWrapper.setHeight(ViewerUtils.round(koef * originalHeight));
 
-            imageViewerPanel.getImageWrapper().resetPosition();
+            resetPosition();
         }
     }
 
@@ -42,7 +42,37 @@ class FitFullSizeProcessor {
             int originalWidth = imageWrapper.getOriginalWidth();
             imageWrapper.setWidth(originalWidth);
             imageWrapper.setHeight(originalHeight);
-            imageViewerPanel.getImageWrapper().resetPosition();
+            resetPosition();
+        }
+    }
+
+    private void resetPosition() {
+        ImageWrapper imageWrapper = imageViewerPanel.getImageWrapper();
+        int width = imageWrapper.getDOMWidth();
+        int height = imageWrapper.getDOMHeight();
+
+        switch (imageWrapper.getRotation()) {
+            case ROTATION_0: {
+                imageWrapper.setLeft(0);
+                imageWrapper.setTop(0);
+                break;
+            }
+            case ROTATION_90: {
+                imageWrapper.setLeft(height);
+                imageWrapper.setTop(0);
+                break;
+            }
+            case ROTATION_180: {
+                imageWrapper.setLeft(width);
+                imageWrapper.setTop(height);
+                break;
+            }
+            case ROTATION_270: {
+                imageWrapper.setLeft(height);
+                imageWrapper.setTop(width);
+                break;
+            }
+            default:
         }
     }
 

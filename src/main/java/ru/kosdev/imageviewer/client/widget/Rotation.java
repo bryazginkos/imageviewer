@@ -17,14 +17,18 @@ public enum Rotation {
 
     public Rotation getLeft() {
         int currentDegree = degree - 90;
-        if (degree < 0) currentDegree = 270;
+        if (currentDegree < 0) currentDegree = 270;
         return findByDegree(currentDegree);
     }
 
     public Rotation getRight() {
         int currentDegree = degree + 90;
-        if (degree >= 360) currentDegree = 0;
+        if (currentDegree >= 360) currentDegree = 0;
         return findByDegree(currentDegree);
+    }
+
+    public int getDegree() {
+        return degree;
     }
 
     private Rotation findByDegree(int degree) {
