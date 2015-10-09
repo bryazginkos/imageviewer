@@ -12,10 +12,11 @@ body {
     cursor: url(hand.cur) 6 8, pointer;
     border-style: solid;
     border-width: 1px;
+    position: relative;
 }
 
 .showImage {
-    position: relative;
+    position: absolute;
     top: 0;
     left: 0;
 }

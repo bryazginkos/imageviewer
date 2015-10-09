@@ -52,12 +52,12 @@ class ImageWrapper {
 
     public void setTop(int top) {
         int cssTop = CoordinatesTransformer.getCssTop(rotation, axisX, axisY, top);
-        DOM.setStyleAttribute(image.getElement(), "top", Integer.toString(cssTop));
+        DOM.setStyleAttribute(image.getElement(), "top", Integer.toString(cssTop) + "px");
     }
 
     public void setLeft(int left) {
         int cssLeft = CoordinatesTransformer.getCssLeft(rotation, axisX, axisY, left);
-        DOM.setStyleAttribute(image.getElement(), "left", Integer.toString(cssLeft));
+        DOM.setStyleAttribute(image.getElement(), "left", Integer.toString(cssLeft) + "px");
     }
 
     public int getTop() {
@@ -87,6 +87,7 @@ class ImageWrapper {
     }
 
     public void rotateLeft(int centerX, int centerY) {
+        //вот эта вот операция смещает видимый top. Нужно ее делать сохраняя видимый топ
         setRotationAxis(centerX, centerY);
         rotation = rotation.getLeft();
         setRotation(rotation.getDegree());
@@ -107,11 +108,11 @@ class ImageWrapper {
     }
 
     public void setHeight(int height) {
-        DOM.setStyleAttribute(image.getElement(), getHeightAttribute(), Integer.toString(height));
+        DOM.setStyleAttribute(image.getElement(), getHeightAttribute(), Integer.toString(height) + "px");
     }
 
     public void setWidth(int width) {
-        DOM.setStyleAttribute(image.getElement(), getWidthAttribute(), Integer.toString(width));
+        DOM.setStyleAttribute(image.getElement(), getWidthAttribute(), Integer.toString(width) + "px");
     }
 
     public int getDOMHeight() {
@@ -143,8 +144,17 @@ class ImageWrapper {
     }
 
     public void setRotationAxis(int x, int y) {
+        int oldTop = getTop();
+        int oldLeft = getLeft();
+        /*
+        1)Смотрим видимые координаты
+        2)Устанавливаем новую ось
+        3)Устанавливаем старые видимые координаты
+         */
         DOM.setStyleAttribute(image.getElement(), "transformOrigin", x + "px " + y + "px 0");
         axisX = x;
         axisY = y;
+        setLeft(oldLeft);
+        setTop(oldTop);
     }
 }
