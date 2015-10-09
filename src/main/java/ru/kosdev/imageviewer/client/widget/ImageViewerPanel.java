@@ -7,6 +7,7 @@ import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.SimplePanel;
+import ru.kosdev.imageviewer.client.widget.utils.ViewerUtils;
 
 /**
  * Created by brjazgin on 07.10.2015.
@@ -63,16 +64,37 @@ public class ImageViewerPanel extends SimplePanel implements HasMouseOutHandlers
         zoom = 1;
     }
 
+    public void setZoom(double newZoom) {
+        int originalWidth = imageWrapper.getOriginalWidth();
+        int originalHeight = imageWrapper.getOriginalHeight();
+
+        int centerLeft = getWidth()/2;
+        int centerTop = getHeight()/2;
+
+        int imageTop = imageWrapper.getTop();
+        int imageLeft = imageWrapper.getLeft();
+
+        int deltaY = ViewerUtils.round((1 - newZoom / zoom) * (centerTop - imageTop));
+        int deltaX = ViewerUtils.round((1 - newZoom / zoom) * (centerLeft - imageLeft));
+
+        imageWrapper.setWidth(ViewerUtils.round(originalWidth*newZoom));
+        imageWrapper.setHeight(ViewerUtils.round(originalHeight*newZoom));
+
+        imageWrapper.setLeft(imageLeft + deltaX);
+        imageWrapper.setTop(imageLeft + deltaY);
+        zoom = newZoom;
+    }
+
+    public double getZoom() {
+        return zoom;
+    }
+
     public void rotateLeft() {
         imageWrapper.rotateLeft(getImageCenterPointX(), getImageCenterPointY());
     }
 
     public void rotateRight() {
         imageWrapper.rotateRight(getImageCenterPointX(), getImageCenterPointY());
-    }
-
-    public void changeAxis(int x, int y) {
-        imageWrapper.setRotationAxis(x, y);
     }
 
     public HandlerRegistration addMouseOutHandler(MouseOutHandler handler) {

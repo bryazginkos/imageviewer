@@ -45,10 +45,17 @@ public class ImageViewer implements EntryPoint {
             }
         });
 
-        Button changeAxis = new Button("Change axis");
-        changeAxis.addClickHandler(new ClickHandler() {
+        Button plusButton = new Button("Plus");
+        plusButton.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event) {
-                viewer.changeAxis(0, 0);
+                viewer.setZoom(viewer.getZoom() + 0.1);
+            }
+        });
+
+        Button minusButton = new Button("Minus");
+        minusButton.addClickHandler(new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                viewer.setZoom(viewer.getZoom()-0.1);
             }
         });
 
@@ -65,7 +72,8 @@ public class ImageViewer implements EntryPoint {
         horizontalPanel.add(fullButton);
         horizontalPanel.add(leftButton);
         horizontalPanel.add(rightButton);
-        horizontalPanel.add(changeAxis);
+        horizontalPanel.add(plusButton);
+        horizontalPanel.add(minusButton);
         RootPanel.get().add(horizontalPanel);
     }
 }
