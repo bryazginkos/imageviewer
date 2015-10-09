@@ -16,9 +16,12 @@ public class ImageViewerPanel extends SimplePanel implements HasMouseOutHandlers
     private FitFullSizeProcessor fitFullSizeProcessor;
     private DragAndDropProcessor dragAndDropProcessor;
 
+    private double zoom;
+
     private final ImageWrapper imageWrapper;
 
     public ImageViewerPanel(ImageWrapper imageWrapper) {
+        zoom = 1;
         this.imageWrapper = imageWrapper;
         add(imageWrapper.getImage());
         setStyleName("watchWindow");
@@ -49,11 +52,15 @@ public class ImageViewerPanel extends SimplePanel implements HasMouseOutHandlers
     }
 
     public void fitSize() {
-        fitFullSizeProcessor.fitToSize();
+        double newzoom = fitFullSizeProcessor.fitToSize();
+        if (newzoom > 0) {
+            zoom = newzoom;
+        }
     }
 
     public void fullSize() {
         fitFullSizeProcessor.fullSize();
+        zoom = 1;
     }
 
     public void rotateLeft() {

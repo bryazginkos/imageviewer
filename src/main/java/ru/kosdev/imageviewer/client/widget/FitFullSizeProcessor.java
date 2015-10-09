@@ -13,7 +13,7 @@ class FitFullSizeProcessor {
         this.imageViewerPanel = imageViewerPanel;
     }
 
-    public void fitToSize() {
+    public double fitToSize() {
         ImageWrapper imageWrapper = imageViewerPanel.getImageWrapper();
         if (imageWrapper.isLoaded()) {
 
@@ -32,7 +32,9 @@ class FitFullSizeProcessor {
             imageWrapper.setHeight(ViewerUtils.round(koef * originalHeight));
 
             resetPosition();
+            return koef;
         }
+        return -1;
     }
 
     public void fullSize() {
