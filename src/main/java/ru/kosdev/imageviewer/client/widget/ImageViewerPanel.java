@@ -64,6 +64,10 @@ public class ImageViewerPanel extends SimplePanel implements HasMouseOutHandlers
         imageWrapper.rotateRight(getImageCenterPointX(), getImageCenterPointY());
     }
 
+    public void changeAxis(int x, int y) {
+        imageWrapper.setRotationAxis(x, y);
+    }
+
     public HandlerRegistration addMouseOutHandler(MouseOutHandler handler) {
         return addDomHandler(handler, MouseOutEvent.getType());
     }
@@ -78,13 +82,29 @@ public class ImageViewerPanel extends SimplePanel implements HasMouseOutHandlers
 
     private int getImageCenterPointX() {
         int windowWidth = getWidth();
-        int imageLeft = imageWrapper.getDOMLeft();
-        return windowWidth/2 - imageLeft;
+        int windowHeight = getHeight();
+        int imageLeft = imageWrapper.getLeft();
+        int imageTop = imageWrapper.getTop();
+        switch (imageWrapper.getRotation()) {
+            case ROTATION_0: return windowWidth/2 - imageLeft;
+            case ROTATION_90: return windowHeight/2 - imageTop;
+            case ROTATION_180: return imageLeft - windowWidth/2;
+            case ROTATION_270: return imageTop - windowHeight/2;
+            default: return 0;
+        }
     }
 
     private int getImageCenterPointY() {
+        int windowWidth = getWidth();
         int windowHeight = getHeight();
-        int imageTop = imageWrapper.getDOMTop();
-        return windowHeight/2 - imageTop;
+        int imageLeft = imageWrapper.getLeft();
+        int imageTop = imageWrapper.getTop();
+        switch (imageWrapper.getRotation()) {
+            case ROTATION_0: return windowHeight/2 - imageTop;
+            case ROTATION_90: return imageLeft - windowWidth/2;
+            case ROTATION_180: return imageTop - windowHeight/2;
+            case ROTATION_270: return windowWidth/2 - imageLeft;
+                default: return 0;
+        }
     }
 }

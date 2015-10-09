@@ -87,7 +87,6 @@ class ImageWrapper {
     }
 
     public void rotateLeft(int centerX, int centerY) {
-        //вот эта вот операция смещает видимый top. Нужно ее делать сохраняя видимый топ
         setRotationAxis(centerX, centerY);
         rotation = rotation.getLeft();
         setRotation(rotation.getDegree());
