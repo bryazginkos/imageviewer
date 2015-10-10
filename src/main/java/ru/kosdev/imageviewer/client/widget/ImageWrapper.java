@@ -48,6 +48,14 @@ class ImageWrapper {
         return isWidthAndHeightInverted() ? originalWidth : originalHeight;
     }
 
+    public int getOriginalDOMWidth() {
+        return originalWidth;
+    }
+
+    public int getOriginalDOMHeight() {
+        return originalHeight;
+    }
+
     public void setTop(int top) {
         int cssTop = CoordinatesTransformer.getCssTop(rotation, axisX, axisY, top);
         DOM.setStyleAttribute(image.getElement(), "top", Integer.toString(cssTop) + "px");
@@ -56,6 +64,10 @@ class ImageWrapper {
     public void setLeft(int left) {
         int cssLeft = CoordinatesTransformer.getCssLeft(rotation, axisX, axisY, left);
         DOM.setStyleAttribute(image.getElement(), "left", Integer.toString(cssLeft) + "px");
+    }
+
+    public void setZoom(double zoom) {
+        DOM.setStyleAttribute(image.getElement(), "zoom", Double.toString(zoom));
     }
 
     public int getTop() {
@@ -68,13 +80,6 @@ class ImageWrapper {
         return CoordinatesTransformer.getVisibleLeft(rotation, axisX, axisY, cssLeft);
     }
 
-    public int getDOMTop() {
-        return ViewerUtils.parsePixelsString(DOM.getStyleAttribute(image.getElement(), "top"));
-    }
-
-    public int getDOMLeft() {
-        return ViewerUtils.parsePixelsString(DOM.getStyleAttribute(image.getElement(), "left"));
-    }
 
     public boolean isLoaded() {
         return !loading;
@@ -94,30 +99,6 @@ class ImageWrapper {
         setRotationAxis(centerX, centerY);
         rotation = rotation.getRight();
         setRotation(rotation.getDegree());
-    }
-
-    public int getHeight() {
-        return ViewerUtils.parsePixelsString(DOM.getStyleAttribute(image.getElement(), getHeightAttribute()));
-    }
-
-    public int getWidth() {
-        return ViewerUtils.parsePixelsString(DOM.getStyleAttribute(image.getElement(), getWidthAttribute()));
-    }
-
-    public void setHeight(int height) {
-        DOM.setStyleAttribute(image.getElement(), getHeightAttribute(), Integer.toString(height) + "px");
-    }
-
-    public void setWidth(int width) {
-        DOM.setStyleAttribute(image.getElement(), getWidthAttribute(), Integer.toString(width) + "px");
-    }
-
-    public int getDOMHeight() {
-        return ViewerUtils.parsePixelsString(DOM.getStyleAttribute(image.getElement(), "height"));
-    }
-
-    public int getDOMWidth() {
-        return ViewerUtils.parsePixelsString(DOM.getStyleAttribute(image.getElement(), "width"));
     }
 
     public Rotation getRotation() {

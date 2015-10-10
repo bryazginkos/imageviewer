@@ -13,7 +13,6 @@ import com.google.gwt.user.client.ui.SimplePanel;
  */
 public class ImageViewerPanel extends SimplePanel implements HasMouseOutHandlers {
 
-    private FitFullSizeProcessor fitFullSizeProcessor;
     private DragAndDropProcessor dragAndDropProcessor;
 
     private double zoom;
@@ -27,7 +26,6 @@ public class ImageViewerPanel extends SimplePanel implements HasMouseOutHandlers
         setStyleName("watchWindow");
         addAttachHandler(new AttachEvent.Handler() {
             public void onAttachOrDetach(AttachEvent event) {
-                addFitFullSizeProcessor();
                 addDragAndDropProcessor();
             }
         });
@@ -51,22 +49,8 @@ public class ImageViewerPanel extends SimplePanel implements HasMouseOutHandlers
         return Integer.parseInt(height);
     }
 
-    public void fitSize() {
-        double newzoom = fitFullSizeProcessor.fitToSize();
-        if (newzoom > 0) {
-            zoom = newzoom;
-        }
-    }
-
-    public void fullSize() {
-        fitFullSizeProcessor.fullSize();
-        zoom = 1;
-    }
 
     public void setZoom(double newZoom) {
-        int originalWidth = imageWrapper.getOriginalWidth();
-        int originalHeight = imageWrapper.getOriginalHeight();
-
         int centerLeft = getWidth()/2;
         int centerTop = getHeight()/2;
 
@@ -76,8 +60,7 @@ public class ImageViewerPanel extends SimplePanel implements HasMouseOutHandlers
         int deltaY = ViewerUtils.round((1 - newZoom / zoom) * (centerTop - imageTop));
         int deltaX = ViewerUtils.round((1 - newZoom / zoom) * (centerLeft - imageLeft));
 
-        imageWrapper.setWidth(ViewerUtils.round(originalWidth*newZoom));
-        imageWrapper.setHeight(ViewerUtils.round(originalHeight*newZoom));
+        imageWrapper.setZoom(newZoom);
 
         imageWrapper.setLeft(imageLeft + deltaX);
         imageWrapper.setTop(imageTop + deltaY);
@@ -100,8 +83,63 @@ public class ImageViewerPanel extends SimplePanel implements HasMouseOutHandlers
         return addDomHandler(handler, MouseOutEvent.getType());
     }
 
-    private void addFitFullSizeProcessor() {
-        fitFullSizeProcessor = new FitFullSizeProcessor(this);
+    public void fitSize() {
+        if (imageWrapper.isLoaded()) {
+
+            int watchWidth = getWidth();
+            int watchHeight = getHeight();
+
+            int originalHeight = imageWrapper.getOriginalHeight();
+            int originalWidth = imageWrapper.getOriginalWidth();
+
+            double koefW = (double) (watchHeight) / originalHeight;
+            double koefH = (double) (watchWidth) / originalWidth;
+
+            zoom =  ViewerUtils.min(koefW, koefH);
+
+            imageWrapper.setZoom(zoom);
+
+            resetPosition();
+        }
+    }
+
+    public void fullSize() {
+        if (imageWrapper.isLoaded()) {
+            imageWrapper.setZoom(1);
+            zoom = 1;
+            resetPosition();
+        }
+    }
+
+    private void resetPosition() {
+        ImageWrapper imageWrapper = getImageWrapper();
+        int width = ViewerUtils.round(imageWrapper.getOriginalDOMWidth() * zoom);
+        int height = ViewerUtils.round(imageWrapper.getOriginalDOMHeight() * zoom);
+
+        imageWrapper.setRotationAxis(0, 0);
+        switch (imageWrapper.getRotation()) {
+            case ROTATION_0: {
+                imageWrapper.setLeft(0);
+                imageWrapper.setTop(0);
+                break;
+            }
+            case ROTATION_90: {
+                imageWrapper.setLeft(height);
+                imageWrapper.setTop(0);
+                break;
+            }
+            case ROTATION_180: {
+                imageWrapper.setLeft(width);
+                imageWrapper.setTop(height);
+                break;
+            }
+            case ROTATION_270: {
+                imageWrapper.setLeft(0);
+                imageWrapper.setTop(width);
+                break;
+            }
+            default:
+        }
     }
 
     private void addDragAndDropProcessor() {
