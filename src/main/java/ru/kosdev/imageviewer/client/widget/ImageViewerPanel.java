@@ -81,7 +81,7 @@ public class ImageViewerPanel extends SimplePanel implements HasMouseOutHandlers
         imageWrapper.setHeight(ViewerUtils.round(originalHeight*newZoom));
 
         imageWrapper.setLeft(imageLeft + deltaX);
-        imageWrapper.setTop(imageLeft + deltaY);
+        imageWrapper.setTop(imageTop + deltaY);
         zoom = newZoom;
     }
 
