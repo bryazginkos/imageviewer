@@ -13,8 +13,6 @@ import com.google.gwt.user.client.ui.SimplePanel;
  */
 public class ImageViewerPanel extends SimplePanel implements HasMouseOutHandlers {
 
-    private DragAndDropProcessor dragAndDropProcessor;
-
     private double zoom;
 
     private final ImageWrapper imageWrapper;
@@ -143,7 +141,8 @@ public class ImageViewerPanel extends SimplePanel implements HasMouseOutHandlers
     }
 
     private void addDragAndDropProcessor() {
-        dragAndDropProcessor = new DragAndDropProcessor(this);
+        DragAndDropProcessor dragAndDropProcessor = new DragAndDropProcessor();
+        dragAndDropProcessor.bind(this);
     }
 
     private int getImageCenterPointX() {

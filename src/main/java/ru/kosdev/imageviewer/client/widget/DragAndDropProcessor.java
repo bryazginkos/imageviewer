@@ -7,7 +7,7 @@ import com.google.gwt.event.dom.client.*;
  */
 class DragAndDropProcessor {
 
-    private final ImageViewerPanel imageViewerPanel;
+    private ImageViewerPanel imageViewerPanel;
 
     private int xScreen0;
     private int yScreen0;
@@ -17,7 +17,7 @@ class DragAndDropProcessor {
 
     private boolean pressed;
 
-    public DragAndDropProcessor(ImageViewerPanel imageViewerPanel) {
+    public void bind(ImageViewerPanel imageViewerPanel) {
         this.imageViewerPanel = imageViewerPanel;
         imageViewerPanel.getImageWrapper().getImage().addMouseDownHandler(createMouseDownHandler());
         imageViewerPanel.getImageWrapper().getImage().addMouseUpHandler(createMouseUpHandler());
