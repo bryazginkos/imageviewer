@@ -4,8 +4,6 @@ import com.google.gwt.event.dom.client.LoadEvent;
 import com.google.gwt.event.dom.client.LoadHandler;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Image;
-import ru.kosdev.imageviewer.client.widget.utils.CoordinatesTransformer;
-import ru.kosdev.imageviewer.client.widget.utils.ViewerUtils;
 
 /**
  * Created by brjazgin on 08.10.2015.
@@ -61,21 +59,21 @@ class ImageWrapper {
     }
 
     public int getTop() {
-        int cssTop = ViewerUtils.parseStringCss(DOM.getStyleAttribute(image.getElement(), "top"));
+        int cssTop = ViewerUtils.parsePixelsString(DOM.getStyleAttribute(image.getElement(), "top"));
         return CoordinatesTransformer.getVisibleTop(rotation, axisX, axisY, cssTop);
     }
 
     public int getLeft() {
-        int cssLeft = ViewerUtils.parseStringCss(DOM.getStyleAttribute(image.getElement(), "left"));
+        int cssLeft = ViewerUtils.parsePixelsString(DOM.getStyleAttribute(image.getElement(), "left"));
         return CoordinatesTransformer.getVisibleLeft(rotation, axisX, axisY, cssLeft);
     }
 
     public int getDOMTop() {
-        return ViewerUtils.parseStringCss(DOM.getStyleAttribute(image.getElement(), "top"));
+        return ViewerUtils.parsePixelsString(DOM.getStyleAttribute(image.getElement(), "top"));
     }
 
     public int getDOMLeft() {
-        return ViewerUtils.parseStringCss(DOM.getStyleAttribute(image.getElement(), "left"));
+        return ViewerUtils.parsePixelsString(DOM.getStyleAttribute(image.getElement(), "left"));
     }
 
     public boolean isLoaded() {
@@ -99,11 +97,11 @@ class ImageWrapper {
     }
 
     public int getHeight() {
-        return ViewerUtils.parseStringCss(DOM.getStyleAttribute(image.getElement(), getHeightAttribute()));
+        return ViewerUtils.parsePixelsString(DOM.getStyleAttribute(image.getElement(), getHeightAttribute()));
     }
 
     public int getWidth() {
-        return ViewerUtils.parseStringCss(DOM.getStyleAttribute(image.getElement(), getWidthAttribute()));
+        return ViewerUtils.parsePixelsString(DOM.getStyleAttribute(image.getElement(), getWidthAttribute()));
     }
 
     public void setHeight(int height) {
@@ -115,11 +113,11 @@ class ImageWrapper {
     }
 
     public int getDOMHeight() {
-        return ViewerUtils.parseStringCss(DOM.getStyleAttribute(image.getElement(), "height"));
+        return ViewerUtils.parsePixelsString(DOM.getStyleAttribute(image.getElement(), "height"));
     }
 
     public int getDOMWidth() {
-        return ViewerUtils.parseStringCss(DOM.getStyleAttribute(image.getElement(), "width"));
+        return ViewerUtils.parsePixelsString(DOM.getStyleAttribute(image.getElement(), "width"));
     }
 
     public Rotation getRotation() {

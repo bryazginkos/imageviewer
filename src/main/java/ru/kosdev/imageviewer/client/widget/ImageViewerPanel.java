@@ -7,7 +7,6 @@ import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.SimplePanel;
-import ru.kosdev.imageviewer.client.widget.utils.ViewerUtils;
 
 /**
  * Created by brjazgin on 07.10.2015.
@@ -21,9 +20,9 @@ public class ImageViewerPanel extends SimplePanel implements HasMouseOutHandlers
 
     private final ImageWrapper imageWrapper;
 
-    public ImageViewerPanel(ImageWrapper imageWrapper) {
+    public ImageViewerPanel() {
         zoom = 1;
-        this.imageWrapper = imageWrapper;
+        this.imageWrapper = new ImageWrapper();
         add(imageWrapper.getImage());
         setStyleName("watchWindow");
         addAttachHandler(new AttachEvent.Handler() {

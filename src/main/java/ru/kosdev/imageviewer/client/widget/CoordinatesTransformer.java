@@ -1,11 +1,10 @@
-package ru.kosdev.imageviewer.client.widget.utils;
+package ru.kosdev.imageviewer.client.widget;
 
-import ru.kosdev.imageviewer.client.widget.Rotation;
 
 /**
  * Created by brjazgin on 08.10.2015.
  */
-public class CoordinatesTransformer {
+class CoordinatesTransformer {
 
     /**
      * Если изображение повернуто, то css top не будет совпадать с вилимым top

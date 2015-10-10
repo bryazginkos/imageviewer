@@ -1,12 +1,11 @@
-package ru.kosdev.imageviewer.coordinates;
+package ru.kosdev.imageviewer.client.widget;
 
 import org.junit.Test;
-import ru.kosdev.imageviewer.client.widget.Rotation;
 
 import static org.junit.Assert.assertEquals;
-import static ru.kosdev.imageviewer.client.widget.utils.CoordinatesTransformer.*;
-import static ru.kosdev.imageviewer.client.widget.utils.CoordinatesTransformer.getVisibleLeft;
-import static ru.kosdev.imageviewer.client.widget.utils.CoordinatesTransformer.getVisibleTop;
+import static ru.kosdev.imageviewer.client.widget.CoordinatesTransformer.*;
+import static ru.kosdev.imageviewer.client.widget.CoordinatesTransformer.getVisibleLeft;
+import static ru.kosdev.imageviewer.client.widget.CoordinatesTransformer.getVisibleTop;
 
 /**
  * Created by Константин on 08.10.2015.

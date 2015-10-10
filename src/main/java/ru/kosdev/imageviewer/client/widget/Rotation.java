@@ -3,7 +3,7 @@ package ru.kosdev.imageviewer.client.widget;
 /**
  * Created by brjazgin on 08.10.2015.
  */
-public enum Rotation {
+enum Rotation {
     ROTATION_0(0),
     ROTATION_90(90),
     ROTATION_180(180),

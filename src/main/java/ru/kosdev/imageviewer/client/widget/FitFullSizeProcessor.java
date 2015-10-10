@@ -1,7 +1,5 @@
 package ru.kosdev.imageviewer.client.widget;
 
-import ru.kosdev.imageviewer.client.widget.utils.ViewerUtils;
-
 /**
  * Created by brjazgin on 08.10.2015.
  */

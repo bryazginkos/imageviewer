@@ -5,14 +5,13 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.*;
 import ru.kosdev.imageviewer.client.widget.ImageViewerPanel;
-import ru.kosdev.imageviewer.client.widget.ViewerFactory;
 
 /**
  * Created by Константин on 07.10.2015.
  */
 public class ImageViewer implements EntryPoint {
     public void onModuleLoad() {
-        final ImageViewerPanel viewer = ViewerFactory.createImageViewerPanel();
+        final ImageViewerPanel viewer = new ImageViewerPanel();
         viewer.setUrl("http://icdn.lenta.ru/images/2015/10/02/14/20151002142531780/online_a57bbfb74077da336bed0e562542942c.jpg");
         viewer.setWidth("500px");
         viewer.setHeight("300px");
